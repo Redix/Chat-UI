@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<ActiveMobileDevice>
+		<NoProfile iOSSimulator="iPhone5"/>
+	</ActiveMobileDevice>
+	<Transactions>
+    <Transaction>2021/10/06 21:14:10.000.490,C:\Delta\OneDrive\Documentos\Embarcadero\Studio\Projects\ChatTest\HeaderFooterNavigation.dproj=C:\Delta\OneDrive\Documentos\Embarcadero\Studio\Projects\ChatTest\Chatex.dproj</Transaction>
+    <Transaction>2021/10/06 21:34:46.000.395,C:\Delta\OneDrive\Documentos\Embarcadero\Studio\Projects\ChatTest\HeaderFooterFormwithNavigation.pas=C:\Delta\OneDrive\Documentos\Embarcadero\Studio\Projects\ChatTest\Main.pas</Transaction>
+    <Transaction>2021/10/06 21:34:46.000.395,C:\Delta\OneDrive\Documentos\Embarcadero\Studio\Projects\ChatTest\HeaderFooterFormwithNavigation.fmx=C:\Delta\OneDrive\Documentos\Embarcadero\Studio\Projects\ChatTest\Main.fmx</Transaction>
+    <Transaction>2021/10/06 21:37:45.000.297,=C:\Delta\OneDrive\Documentos\Embarcadero\Studio\Projects\ChatTest\Unit1.pas</Transaction>
+    <Transaction>2021/10/06 21:39:52.000.439,C:\Delta\OneDrive\Documentos\Embarcadero\Studio\Projects\ChatTest\Unit1.pas=C:\Delta\OneDrive\Documentos\Embarcadero\Studio\Projects\ChatTest\Class\Boxes.pas</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,289 @@
+unit Boxes;
+
+interface
+uses
+  FMX.StdCtrls,Vcl.Graphics,FMX.Graphics,FMX.Types,FMX.Objects,System.UITypes,FMX.Layouts,
+  SysUtils,DateUtils;
+
+Type
+  TChatBox = Class(TPanel)
+    RecLeft    : TRectangle;
+    RecCenter  : TRectangle;
+    RecRight   : TRectangle;
+    RecUpRight : TRectangle;
+    RecDwRight : TRectangle;
+    LabName    : TLabel;
+    LabComent  : TLabel;
+    LabHora    : TLabel;
+    ImgPhoto   : TImage;
+    ImgRight   : TImage;
+    ImgViewed  : TImage;
+    ShaCircle  : TCircle;
+    LabPath    : TLabel;
+
+  Private
+    Procedure ShowStatus;
+    Function Elapsed(pFecha:TDatetime):String;
+  Public
+    Procedure DatBox(pName,pComent,pImage:String;pViewed:Boolean;pFecha:TDateTime;pNroMsg:integer);
+    Procedure Viewed;
+  End;
+
+implementation
+
+{ TChatBox }
+
+procedure TChatBox.DatBox(pName,pComent,pImage: String;pViewed:Boolean;pFecha:TDateTime;pNroMsg:integer);
+Var
+  LRnd      : Integer;
+  ShaCirMsg : TRoundRect;
+  LabMsg    : TLabel;
+begin
+  // Body Panel
+    Align     := TAlignLayout.Top;
+    Height    := 50;
+    Visible   := True;
+
+  // Left Area
+    RecLeft             := TRectangle.Create(Self);
+    RecLeft.Parent      := Self;
+    RecLeft.Width       := 55;
+    RecLeft.Fill.Color  := TAlphaColorRec.White;
+    RecLeft.Stroke.Kind := TBrushKind.None;
+    RecLeft.Align       := TAlignLayout.Left;
+
+  // Center Area
+    RecCenter             := TRectangle.Create(Self);
+    RecCenter.Parent      := Self;
+    RecCenter.Fill.Color  := TAlphaColorRec.White;
+    RecCenter.Stroke.Kind := TBrushKind.None;
+    RecCenter.Align       := TAlignLayout.Client;
+
+  // Right Area
+    RecRight             := TRectangle.Create(Self);
+    RecRight.Parent      := Self;
+    RecRight.Width       := 80;
+    RecRight.Fill.Color  := TAlphaColorRec.Bisque;
+    RecRight.Stroke.Kind := TBrushKind.None;
+    RecRight.Align       := TAlignLayout.Right;
+
+  // Area Up Right
+    RecUpRight             := TRectangle.Create(Self);
+    RecUpRight.Parent      := RecRight;
+    RecUpRight.Height      := 20;
+    RecUpRight.Align       := TAlignLayout.Top;
+    RecUpRight.Fill.Color  := TAlphaColorRec.White;
+    RecUpRight.Stroke.Kind := TBrushKind.None;
+
+  // Layout Down Right
+    RecDwRight             := TRectangle.Create(Self);
+    RecDwRight.Parent      := RecRight;
+    RecDwRight.Align       := TAlignLayout.Client;
+    RecDwRight.Fill.Color  := TAlphaColorRec.White;
+    RecDwRight.Stroke.Kind := TBrushKind.None;
+
+  // Status
+    ImgViewed               := TImage.Create(Self);
+    ImgViewed.Parent        := RecUpRight;
+    ImgViewed.Align         := TAlignLayout.Left;
+    ImgViewed.Margins.Top   := 5;
+    ImgViewed.Height        := 11;
+    ImgViewed.Width         := 13;
+    ImgViewed.WrapMode      := TImageWrapMode.Original;
+    if pViewed then
+      Begin
+        ImgViewed.MultiResBitmap.Add.Bitmap.LoadFromFile('images\check2.jpg');
+        ImgViewed.Tag       := 1;
+      End
+    Else
+      Begin
+        ImgViewed.MultiResBitmap.Add.Bitmap.LoadFromFile('images\check1.jpg');
+        ImgViewed.Tag       := 0;
+      End;
+
+  // Image Dw Right
+    LRnd            := Random(3);
+    ImgRight        := TImage.Create(Self);
+    ImgRight.Parent := RecDwRight;
+    ImgRight.Align  := TAlignLayout.Left;
+    case LRnd of
+      0 : ImgRight.MultiResBitmap.Add.Bitmap.LoadFromFile('images\imghr1.jpg');
+      1 : ImgRight.MultiResBitmap.Add.Bitmap.LoadFromFile('images\imghr2.jpg');
+      2 : ImgRight.MultiResBitmap.Add.Bitmap.LoadFromFile('images\imghr3.jpg');
+    end;
+
+  // Messages
+    ShaCirMsg              := TRoundRect.Create(Self);
+    ShaCirMsg.Parent       := RecDwRight;
+    ShaCirMsg.Fill.Kind    := TBrushKind.Solid;
+    ShaCirMsg.Stroke.Kind  := TBrushKind.None;
+    if pViewed then
+      ShaCirMsg.Fill.Color := TAlphaColorRec.Lightgray
+    Else
+      ShaCirMsg.Fill.Color := TAlphaColorRec.Royalblue;
+    ShaCirMsg.Width        := 25;
+    ShaCirMsg.Height       := 19;
+    ShaCirMsg.Position.Y   := 7;
+    ShaCirMsg.Position.X   := 49;
+    LabMsg    := TLabel.Create(Self);
+    LabMsg.Parent     := RecDwRight;
+    LabMsg.AutoSize := False;
+    LabMsg.Width    := 20;
+    LabMsg.StyledSettings := [];
+    LabMsg.TextSettings.HorzAlign := TTextAlign.Center;
+    LabMsg.FontColor := TAlphaColorRec.White;
+    LabMsg.Text       := IntToStr(pNroMsg);
+    LabMsg.Position.Y := 8;
+    LabMsg.Position.X := 51;
+
+
+  // Date
+    LabHora              := TLabel.Create(Self);
+    LabHora.Parent       := RecUpRight;
+    LabHora.Text         := Elapsed(pFecha);
+    LabHora.Align        := TAlignLayout.Left;
+    LabHora.Margins.Left := 8;
+    LabHora.StyledSettings := [];
+    LabHora.TextSettings.Font.Family := 'Tahoma';
+    LabHora.TextSettings.FontColor  := TAlphaColorRec.Gray;
+
+  // Name
+    LabName              := TLabel.Create(Self);
+    LabName.Parent       := RecCenter;
+    LabName.Align        := TAlignLayout.MostTop;
+    LabName.Margins.Top  := 5;
+    LabName.Margins.Left := 10;
+    LabName.Text         := pName;
+    LabName.StyledSettings := [];
+    LabName.TextSettings.Font.Family := 'Tahoma';
+    LabName.TextSettings.Font.Style  := [TFontStyle.fsBold];
+
+  // Comment
+    LabComent              := TLabel.Create(Self);
+    LabComent.Parent       := RecCenter;
+    LabComent.Align        := TAlignLayout.Top;
+    LabComent.Margins.Top    := 1;
+    LabComent.Margins.Left   := 10;
+    LabComent.Text           := pComent;
+    LabComent.StyledSettings := [];
+    LabComent.TextSettings.Font.Family := 'Tahoma';
+    LabComent.TextSettings.FontColor := TAlphaColorRec.Gray;
+
+  // Picture
+    ImgPhoto            := TImage.Create(Self);
+    ImgPhoto.Parent     := RecLeft;
+    ImgPhoto.Position.Y := 9;
+    ImgPhoto.Position.X := 4;
+    ImgPhoto.Width      := 40;
+    ImgPhoto.Height     := 35;
+    ImgPhoto.MultiResBitmap.Add.Bitmap.LoadFromFile(pImage);
+    ImgPhoto.MarginWrapMode := TImageWrapMode.Stretch;
+    LabPath             := TLabel.Create(Self);
+    LabPath.Text        := pImage;
+
+  // Circle
+    ShaCircle                  := TCircle.Create(Self);
+    ShaCircle.Parent           := RecLeft;
+    ShaCircle.Fill.Kind        := TBrushKind.None;
+    ShaCircle.Height           := 53;
+    ShaCircle.Width            := 56;
+    ShaCircle.Position.Y       := 0;
+    ShaCircle.Position.X       := -3;
+    ShaCircle.Stroke.Thickness := 8;
+    ShaCircle.Stroke.Color     := TAlphaColorRec.White;
+
+
+
+end;
+
+function TChatBox.Elapsed(pFecha: TDatetime): String;
+Var
+  LRes  : String;
+  LHoy  : TDateTime;
+  LDay  : Word;
+  LHour : Word;
+  LMin  : Word;
+begin
+  // Inicaliza
+    LRes := '';
+    LHoy := EncodeDateTime(YearOf(Now),Monthof(Now),Dayof(Now), 0,0,0, 0);
+
+  // Hoy
+    if pFecha>= LHoy then
+      Begin
+        LMin := MinutesBetween(pFecha,Now);
+        if LMin = 0 then
+           LRes := 'just now';
+        if (LMin >= 1) and (LMin < 60) then
+            LRes := IntToStr(LMin)+' minutes';
+        if (LMin >= 60) and (LMin < 180) then
+            LRes := IntToStr(HoursBetween(pFecha,Now))+' hours';
+        if (LMin >= 180) then
+           Begin
+             if minuteof(pFecha) < 10 then
+               LRes := IntToStr(Hourof(pFecha))+':0'+intToStr(minuteof(pFecha))
+             Else
+               LRes := IntToStr(Hourof(pFecha))+':'+intToStr(minuteof(pFecha))
+            End;
+      End
+    Else
+      Begin
+        LDay := DaysBetween(pFecha,Now);
+        If LDay < 7 then
+          Begin
+            Case DayofWeek(pFecha) of
+              1 : LRes := 'Sun';
+              2 : LRes := 'Mon';
+              3 : LRes := 'Tue';
+              4 : LRes := 'Wed';
+              5 : LRes := 'Thu';
+              6 : LRes := 'Fri';
+              7 : LRes := 'Sat';
+            End;
+          End
+        Else
+          Begin
+            case monthof(pFecha) of
+              1  : LRes := 'January';
+              2  : LRes := 'February';
+              3  : LRes := 'March';
+              4  : LRes := 'April';
+              5  : LRes := 'May';
+              6  : LRes := 'June';
+              7  : LRes := 'July';
+              8  : LRes := 'August';
+              9  : LRes := 'September';
+              10 : LRes := 'October';
+              11 : LRes := 'November';
+              12 : LRes := 'December';
+            end;
+            LRes := LRes+' '+IntToStr(Dayof(pFecha));
+          End;
+      End;
+
+  // Resultado
+    Result := LRes;
+end;
+
+procedure TChatBox.ShowStatus;
+begin
+  if ImgViewed.Tag =1 then
+      Begin
+        ImgViewed.MultiResBitmap.Add.Bitmap.LoadFromFile('images\check2.jpg');
+        ImgViewed.Tag       := 1;
+      End
+    Else
+      Begin
+        ImgViewed.MultiResBitmap.Add.Bitmap.LoadFromFile('images\check1.jpg');
+        ImgViewed.Tag       := 0;
+      End;
+
+end;
+
+procedure TChatBox.Viewed;
+begin
+  ImgViewed.Tag := 1;
+  ShowStatus;
+end;
+
+end.
