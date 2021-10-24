@@ -1,7 +1,8 @@
 object FMain: TFMain
   Left = 0
   Top = 0
-  BorderStyle = None
+  BorderIcons = [biSystemMenu]
+  BorderStyle = Single
   ClientHeight = 567
   ClientWidth = 388
   FormFactor.Width = 1440
@@ -137,7 +138,6 @@ object FMain: TFMain
         Size.Width = 55.000000000000000000
         Size.Height = 44.000000000000000000
         Size.PlatformDefault = False
-        OnClick = Image1Click
       end
     end
   end

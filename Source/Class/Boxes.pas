@@ -41,7 +41,7 @@ Var
 begin
   // Body Panel
     Align     := TAlignLayout.Top;
-    Height    := 55;
+    Height    := 60;
     Visible   := True;
 
   // Left Area

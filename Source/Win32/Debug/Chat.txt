@@ -2,6 +2,5 @@ Michael Jordan,Talent wins games but teamwork and intelligence wins championship
 Earvin Magic Johnson,Dropping dimes is an expression for Fancy passes.,Images\magic.jpg,True,11/10/2021,7
 Larry Bird,Making it rain: When a player is making shots left right and centre. It is like he can not miss.,Images\larry.jpg,True,12/10/2021,4
 Shaquille O Neal,Shaq attaq!!,Images\shaq.jpg,True,14/10/2021,9
-LeBron James,Maybe my pain was great motivation.,Images\lebron.jpg,True,11/09/2021,19
 Manu Ginobili,When you do something good the Argentine people really attach themselves to you,Images\manu.jpg,True,15/08/2021,23
 Josua Reaves,All i can in Jesus Christ who strengthens me,Images\josua.jpg,True,14/09/2021,27

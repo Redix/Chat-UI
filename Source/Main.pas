@@ -51,7 +51,6 @@ type
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure BtnDosClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure Image1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   Const
     MMaxArray = 20;
@@ -192,11 +191,6 @@ end;
 procedure TFMain.FormShow(Sender: TObject);
 begin
   LoadData;
-end;
-
-procedure TFMain.Image1Click(Sender: TObject);
-begin
-  close;
 end;
 
 procedure TFMain.LoadData;
